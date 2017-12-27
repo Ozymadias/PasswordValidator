@@ -8,7 +8,7 @@ import static org.testng.Assert.assertTrue;
 
 public class PasswordValidatorTest {
     @DataProvider
-    private static final Object[][] tooShortInput() {
+    private static final Object[][] tooShortInputs() {
         return new Object[][]{
                 {"t"},
                 {"to"},
@@ -21,15 +21,28 @@ public class PasswordValidatorTest {
         };
     }
 
-    @Test(dataProvider = "tooShortInput")
-    public void passwordShouldHasAtLeastNineCharacters(String input) {
+    @Test(dataProvider = "tooShortInputs")
+    public void passwordShouldHasAtLeastMinimalLength(String input) {
         assertFalse(PasswordValidator.validate(input), "Password should has at least " + PasswordValidator.MINIMAL_LENGTH + " characters and has only: " + input.length());
+    }
+
+    @DataProvider
+    private static final Object[][] inputsWithoutEnoughDigits() {
+        return new Object[][]{
+                {"properLength"},
+                {"properLength2"},
+        };
+    }
+
+    @Test(dataProvider = "inputsWithoutEnoughDigits")
+    public void passwordShouldHasAtLeastMinimalRequiredNumberOfDigits(String input) {
+        assertFalse(PasswordValidator.validate(input), "Password should has at least " + PasswordValidator.MINIMAL_NB_OF_DIGITS + " digit(s)");
     }
 
     @DataProvider
     private static final Object[][] properInput() {
         return new Object[][]{
-                {"properLength"}
+                {"properLength12"}
         };
     }
 
