@@ -18,15 +18,15 @@ class PasswordValidator {
         return input.matches(regex("\\d", MINIMAL_NB_OF_DIGITS));
     }
 
-    private static String regex(String requrements, int minNb) {
-        return "(.*" + requrements + "){" + minNb + "}.*";
-    }
-
     private static boolean hasRequiredNumberOfCapitalLetters(String input) {
         return input.matches(regex("[A-Z]", MINIMAL_NB_OF_CAPITAL_LETTERS));
     }
 
     private static boolean hasRequiredNumberOfLowerLetters(String input) {
         return input.matches(regex("[a-z]", MINIMAL_NB_OF_LOWER_LETTERS));
+    }
+
+    private static String regex(String requirements, int minNb) {
+        return "(.*" + requirements + "){" + minNb + "}.*";
     }
 }
