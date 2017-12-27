@@ -29,8 +29,8 @@ public class PasswordValidatorTest {
     @DataProvider
     private static final Object[][] inputsWithoutEnoughDigits() {
         return new Object[][]{
-                {"properLength"},
-                {"properLength2"},
+                {"improperLength"},
+                {"improperLength2"},
         };
     }
 
@@ -40,9 +40,23 @@ public class PasswordValidatorTest {
     }
 
     @DataProvider
+    private static final Object[][] inputsWithoutRequiredNumberOfCapitalLetters() {
+        return new Object[][]{
+                {"improper01"}
+        };
+    }
+
+    @Test(dataProvider = "inputsWithoutRequiredNumberOfCapitalLetters")
+    public void passwordShouldHasAtLeastMinimalRequiredNumberOfCapitalLetters(String input) {
+        assertFalse(PasswordValidator.validate(input), "Password should has at least " + PasswordValidator.MINIMAL_NB_OF_CAPITAL_LETTERS + " capital letter(s)");
+    }
+
+    @DataProvider
     private static final Object[][] properInput() {
         return new Object[][]{
-                {"properLength12"}
+                {"properPassword01"},
+                {"AnotherProperPassword02"},
+                {"ANOTHERProperPassword03"}
         };
     }
 
