@@ -42,13 +42,27 @@ public class PasswordValidatorTest {
     @DataProvider
     private static final Object[][] inputsWithoutRequiredNumberOfCapitalLetters() {
         return new Object[][]{
-                {"improper01"}
+                {"improper01"},
+                {"another_improper02"}
         };
     }
 
     @Test(dataProvider = "inputsWithoutRequiredNumberOfCapitalLetters")
     public void passwordShouldHasAtLeastMinimalRequiredNumberOfCapitalLetters(String input) {
         assertFalse(PasswordValidator.validate(input), "Password should has at least " + PasswordValidator.MINIMAL_NB_OF_CAPITAL_LETTERS + " capital letter(s)");
+    }
+
+    @DataProvider
+    private static final Object[][] inputsWithoutRequiredNumberOfLowerLetters() {
+        return new Object[][]{
+                {"0INPROPER1"},
+                {"1ANOTHER_INPROPER2"}
+        };
+    }
+
+    @Test(dataProvider = "inputsWithoutRequiredNumberOfLowerLetters")
+    public void passwordShouldHasAtLeastMinimalRequiredNumberOfLowerLetters(String input) {
+        assertFalse(PasswordValidator.validate(input), "Password should has at least " + PasswordValidator.MINIMAL_NB_OF_LOWER_LETTERS + " lower letter(s)");
     }
 
     @DataProvider

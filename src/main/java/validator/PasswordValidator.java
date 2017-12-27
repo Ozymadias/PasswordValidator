@@ -5,18 +5,28 @@ class PasswordValidator {
     static final int MINIMAL_LENGTH = 9;
     static final int MINIMAL_NB_OF_DIGITS = 2;
     static final int MINIMAL_NB_OF_CAPITAL_LETTERS = 1;
+    static final int MINIMAL_NB_OF_LOWER_LETTERS = 1;
 
     static boolean validate(String input) {
-        return input.length() >= MINIMAL_LENGTH && hasRequiredNumberOfDigits(input) && hasRequiredNumberOfCapitalLetters(input);
+        return input.length() >= MINIMAL_LENGTH
+                && hasRequiredNumberOfDigits(input)
+                && hasRequiredNumberOfCapitalLetters(input)
+                && hasRequiredNumberOfLowerLetters(input);
     }
 
     private static boolean hasRequiredNumberOfDigits(String input) {
-        String regexForMinimalNbOfDigits = "(.*\\d){" + MINIMAL_NB_OF_DIGITS + "}.*";
-        return input.matches(regexForMinimalNbOfDigits);
+        return input.matches(regex("\\d", MINIMAL_NB_OF_DIGITS));
+    }
+
+    private static String regex(String requrements, int minNb) {
+        return "(.*" + requrements + "){" + minNb + "}.*";
     }
 
     private static boolean hasRequiredNumberOfCapitalLetters(String input) {
-        String regexForMinimalNbOfCapitalLetters = "(.*[A-Z]){" + MINIMAL_NB_OF_CAPITAL_LETTERS + "}.*";
-        return input.matches(regexForMinimalNbOfCapitalLetters);
+        return input.matches(regex("[A-Z]", MINIMAL_NB_OF_CAPITAL_LETTERS));
+    }
+
+    private static boolean hasRequiredNumberOfLowerLetters(String input) {
+        return input.matches(regex("[a-z]", MINIMAL_NB_OF_LOWER_LETTERS));
     }
 }
